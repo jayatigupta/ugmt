@@ -9,5 +9,5 @@ End points
 /verifytoken
 /forgotpwd
 
-Each API call requires an appsecret to be set up in HTTP Header.
+Each API call requires an appsecret to be set in HTTP Header.
 
