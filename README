@@ -1,12 +1,12 @@
 End points
 ------------
 
-*Completed***
+*Completed
 /user
 /authn
+/verifytoken
 
 *To be added
-/verifytoken
 /forgotpwd
 
 Each API call requires an appsecret to be set in HTTP Header.

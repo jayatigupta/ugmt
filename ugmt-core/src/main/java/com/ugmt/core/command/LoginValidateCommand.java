@@ -4,7 +4,9 @@ import java.security.NoSuchAlgorithmException;
 
 import com.ugmt.common.dto.AuthnContext;
 import com.ugmt.common.dto.AuthnResponse;
+import com.ugmt.common.dto.BaseDTO;
 import com.ugmt.common.dto.UserDTO;
+import com.ugmt.core.crypt.AESCipher;
 import com.ugmt.core.crypt.HashingUtil;
 import com.ugmt.core.dao.UserDAO;
 import com.ugmt.core.entity.User;
@@ -49,10 +51,36 @@ public class LoginValidateCommand extends AbstractCommand {
 					userdto.setName(user.getName());
 					authnResponse.setEmailVerified(user.isVerified());
 					// Add Encrypted Session Token Here
-
+					authnResponse.setAuthnToken(getToken(user));
 				}
 			}
 		}
 		return authnResponse;
+	}
+
+	private static final String seperator = "%$#";
+
+	private String getToken(User user) {
+		StringBuffer sb = new StringBuffer();
+		sb.append(user.getId()).append(seperator).append(user.getEmail())
+				.append(seperator).append(user.getName()).append(seperator)
+				.append(System.currentTimeMillis());
+		return AESCipher.encrypt(sb.toString());
+	}
+
+	public UserDTO getUserDetails(String token) {
+		UserDTO userDTO = new UserDTO();
+		String decryptedToken = AESCipher.decrypt(token);
+		String[] arr = decryptedToken.split(seperator);
+		if (arr.length == 4) {
+			userDTO.setId(arr[0]);
+			userDTO.setEmail(arr[1]);
+			userDTO.setName(arr[2]);
+			// Time factor can help decide expiration of token.
+		} else {
+			userDTO.setStatus(BaseDTO.AuthnStatus.FAILURE.name());
+			userDTO.setMsg("Invalid Token");
+		}
+		return userDTO;
 	}
 }
