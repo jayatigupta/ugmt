@@ -38,10 +38,10 @@ public class UserCommand extends AbstractCommand {
 		return convertFromRecord(user);
 	}
 
-	public UserDTO update(UserDTO userDTO) {
+	public UserDTO update(UserDTO userDTO) throws InvalidDataException {
 		User user = userDAO.findOne(userDTO.getId());
 		if (user == null) {
-			throw new RuntimeException("user not found with id : "
+			throw new InvalidDataException("user not found with id : "
 					+ userDTO.getId());
 		}
 		user.setEmail(userDTO.getEmail());

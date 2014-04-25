@@ -3,7 +3,7 @@ package com.ugmt.core.endpoint;
 import java.security.NoSuchAlgorithmException;
 
 import javax.ws.rs.Consumes;
-import javax.ws.rs.DELETE;
+//import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
@@ -82,6 +82,8 @@ public class UserService extends AbstractService {
 		}
 	}
 
+	/*
+	 * User deletion should not be allowed ??
 	@DELETE
 	@Path("{id}")
 	@Produces(MediaType.APPLICATION_JSON)
@@ -99,5 +101,5 @@ public class UserService extends AbstractService {
 			user.setStatus(BaseDTO.AuthnStatus.FAILURE.name());
 			return Response.status(Status.OK).entity(user).build();
 		}
-	}
+	} */
 }

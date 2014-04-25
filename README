@@ -2,12 +2,13 @@ End points
 ------------
 
 *Completed
-/user
-/authn
-/verifytoken
+
+/user - add, get, update, delete
+/authn - authentication, successful authn returns a token
+/verifytoken - given a token it returns user details
 
 *To be added
-/forgotpwd
+/password - forgot and change password
 
 Each API call requires an appsecret to be set in HTTP Header.
 
