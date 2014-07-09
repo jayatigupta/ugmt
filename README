@@ -1,3 +1,7 @@
+This project is complete User Management (UGMT) or Identity and access management (IAM) application. 
+It provides REST based end points for UserCrud and reseting/changing user password. 
+It also has rest end point for user authentication. 
+
 End points
 ------------
 
